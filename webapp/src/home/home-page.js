@@ -1,13 +1,10 @@
 import React, { Fragment } from 'react'
 import { useQuery } from '@apollo/client'
-import GetTransactions from '../../gql/transactions.gql'
-import TxTable from '../../components/transactions/TxTable'
+import GetTransactions from '../gql/transactions.gql'
+import { TxTable } from '../components/transactions/TxTable'
 
-const Transactions = () => {
+export function Home () {
   const { loading, error, data = {} } = useQuery(GetTransactions)
-  if (data) {
-    console.log(data)
-  }
 
   if (loading) {
     return (
@@ -18,7 +15,6 @@ const Transactions = () => {
   }
 
   if (error) {
-    console.log(error)
     return (
       <Fragment>
         ¯\_(ツ)_/¯
@@ -32,4 +28,3 @@ const Transactions = () => {
     </Fragment>
   )
 }
-export default Transactions
