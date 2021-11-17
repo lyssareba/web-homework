@@ -1,8 +1,11 @@
 const graphql = require('graphql')
 const { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLFloat, GraphQLNonNull } = graphql
 const { TransactionModel } = require('../data-models/Transaction')
+const { UserModel } = require('../data-models/User')
 const TransactionType = require('./transaction-type')
 const Transactions = require('../query-resolvers/transaction-resolvers')
+const Users = require('../query-resolvers/user-resolvers')
+const UserType = require('./user-type')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -49,7 +52,19 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { id }) {
         return TransactionModel.findByIdAndDelete(id)
       }
-    }
+    },
+    addUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString },
+        dob: { type: GraphQLString },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+      },
+      resolve (parentValue, args) {
+        return Users.addOne(args)
+      }
+    },
   })
 })
 
