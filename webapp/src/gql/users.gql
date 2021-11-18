@@ -1,0 +1,9 @@
+query GetUsers {
+  users {
+    id
+    dob
+    lastName
+    firstName
+    transactions { id, user_id, description, merchant_id, amount }
+  }
+}

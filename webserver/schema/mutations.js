@@ -65,6 +65,31 @@ const mutation = new GraphQLObjectType({
         return Users.addOne(args)
       }
     },
+    updateUser: {
+      type: TransactionType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString)},
+        dob: { type: GraphQLString },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+      },
+      resolve(parentValue, { id, dob, firstName, lastName }) {
+        return UserModel.findByIdAndUpdate(
+          id,
+          { dob, firstName, lastName },
+          { overwirte: true, new: true, useFindAndModify: false },
+        )
+      }
+    },
+    deleteUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLString },
+      },
+      resolve(parentValue, { id }) {
+        return UserModel.findByIdAndDelete(id)
+      }
+    },
   })
 })
 

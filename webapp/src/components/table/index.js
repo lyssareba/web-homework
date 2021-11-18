@@ -205,7 +205,11 @@ const TableCx = ({ addItemText, data, onAddClick, onDelete, onSave, tableHeaderK
                               <Typography style={{ color: row.debit ? 'red' : 'green' }}>
                                 {`${row.debit ? '-' : '+'} ${formatter.format(row[key])}`}
                               </Typography>
-                            ) : row[key]}
+                            ) : (
+                              <>
+                                {key === 'transactions' ? null : row[key]}
+                              </>
+                            )}
                           </>
                         )}
                       </TableCell>
