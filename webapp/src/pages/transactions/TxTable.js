@@ -1,19 +1,21 @@
 /* eslint-disable camelcase, react/jsx-sort-props */
-import React from 'react'
+import React, { useState } from 'react'
 import { arrayOf, string, bool, number, shape } from 'prop-types'
 import { useMutation } from '@apollo/client'
 
 import TableCx from '../../components/table'
+import { TableContext } from '../../components/table/TableContext'
+
 import AddTransaction from '../../gql/addTransaction.gql'
 import UpdateTransaction from '../../gql/updateTransaction.gql'
 import DeleteTransaction from '../../gql/deleteTransaction.gql'
 
-const tableHeaderKeys = [
-  { id: 'id', label: 'ID', readOnly: true, placeholder: 'Auto Generated' },
-  { id: 'user_id', label: 'User ID', placeholder: 'employee1' },
-  { id: 'description', label: 'Description', placeholder: 'groceries' },
-  { id: 'merchant_id', label: 'Merchant ID', placeholder: 'walmart' },
-  { id: 'amount', label: 'Amount', placeholder: '-100 or +100' }
+export const tableHeaderKeys = [
+  { id: 'id', label: 'ID', readOnly: true, placeholder: 'Auto Generated', type: 'text' },
+  { id: 'user_id', label: 'User ID', placeholder: 'employee1', type: 'text' },
+  { id: 'description', label: 'Description', placeholder: 'groceries', type: 'text' },
+  { id: 'merchant_id', label: 'Merchant ID', placeholder: 'walmart', type: 'text' },
+  { id: 'amount', label: 'Amount', placeholder: '-100 or +100', type: 'currency' }
 ]
 
 const createData = (data) => data.map(({ id, user_id, description, merchant_id, debit, amount }) => ({
@@ -31,6 +33,11 @@ const TxTable = ({ data }) => {
   const [updateTransaction] = useMutation(UpdateTransaction)
   const [deleteTransaction] = useMutation(DeleteTransaction)
   const formattedData = createData(data)
+  const [rows, setRows] = useState(formattedData)
+  const [previous, setPrevious] = useState({})
+
+  const testPrefix = 'transactions'
+  const makeDataTestId = (transactionId, fieldName) => `${testPrefix}-${transactionId}-${fieldName}`
 
   const onSave = async (id, rows, setRows, previous) => {
     if (id === '') {
@@ -111,17 +118,26 @@ const TxTable = ({ data }) => {
   }
 
   return (
-    <>
-      <TableCx
-        data={formattedData}
-        tableTitle={'Transactions'}
+    <TableContext.Provider
+      value={{
+        rows,
+        setRows,
+        previous,
+        setPrevious,
+        tableHeaderKeys,
+        makeDataTestId
+      }}
+    >
+      <TableCx.Header
         addItemText={'Add Transaction'}
         onAddClick={onAddTransactionClick}
-        tableHeaderKeys={tableHeaderKeys}
+        tableTitle={'Transactions'}
+      />
+      <TableCx
         onSave={onSave}
         onDelete={onTransactionDelete}
       />
-    </>
+    </TableContext.Provider>
   )
 }
 

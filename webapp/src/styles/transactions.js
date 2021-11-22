@@ -15,6 +15,22 @@ const transactionStyles = makeStyles((theme) => ({
   input: {
     width: 130,
     height: 40
+  },
+  collapsibleCell: {
+    paddingBottom: 0,
+    paddingTop: 0,
+    marginBottom: 0,
+    marginTop: 0
+  },
+  collapsedCell: {
+    paddingBottom: 0,
+    paddingTop: 0,
+    marginBottom: 0,
+    marginTop: 0,
+    borderBottom: 0
+  },
+  collapseContainer: {
+    padding: '24px'
   }
 }))
 

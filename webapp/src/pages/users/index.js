@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import GetUsers from '../../gql/users.gql'
-import Users from './Users'
+import UsersTx from './Users'
 
 const Users = () => {
   const { loading, error, data = {} } = useQuery(GetUsers)
@@ -23,9 +23,7 @@ const Users = () => {
   }
 
   return (
-    <>
-      <Users data={data.users} />
-    </>
+    <UsersTx data={data.users} />
   )
 }
 export default Users

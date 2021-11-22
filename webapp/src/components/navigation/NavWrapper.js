@@ -44,7 +44,7 @@ const NavWrapper = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6'>
-            Budget Buster
+            Budget Master
           </Typography>
         </Toolbar>
       </AppBar>

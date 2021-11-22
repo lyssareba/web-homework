@@ -21,7 +21,11 @@ const UserType = new GraphQLObjectType({
     transactions: {
       type: GraphQLList(TransactionType),
       resolve: async (parentValue) => {
-        return await Transaction.find({ user_id: parentValue.id })
+        const transactions = await Transaction.find({ user_id: parentValue.id })
+        transactions.forEach(tx => {
+          delete Object.assign(tx, {['id']: tx['_id']})['_id']
+        })
+        return transactions
       }
     }
   })

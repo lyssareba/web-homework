@@ -28,7 +28,7 @@ const Home = () => {
   return (
     // set up overview dashboard
     <Fragment>
-      Welcome to Budget Buster
+      Welcome to Budget Master
     </Fragment>
   )
 }
