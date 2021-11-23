@@ -7,7 +7,7 @@ async function find (criteria) {
     : TransactionModel.find()
 
   const transactions = await query.exec()
-
+  console.log(transactions)
   return packageModel(transactions)
 }
 

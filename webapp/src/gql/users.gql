@@ -4,6 +4,6 @@ query GetUsers {
     dob
     lastName
     firstName
-    transactions { id, description, merchant_id, amount }
+    transactions { id, description, merchant_id, amount, debit, credit }
   }
 }
