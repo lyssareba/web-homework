@@ -120,7 +120,7 @@ const UsersTx = ({ data }) => {
       <TableCx
         collapsibleRow={(
           <TableCx.Collapsible
-            headerKeys={txHeaderKeys.filter(key => key.id !== 'user_id')}
+            headerKeys={txHeaderKeys.filter(key => key.id !== 'user_id' && key.id !== 'user')}
             tableTitle={'Transactions'}
           />
         )}

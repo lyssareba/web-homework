@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { func, node } from 'prop-types'
+import { arrayOf, func, node, shape, string } from 'prop-types'
 import Paper from '@material-ui/core/Paper'
 
 import Table from '@material-ui/core/Table'
@@ -15,14 +15,22 @@ import InfoTableCell from './InfoTableCell'
 import ActionTableCell from './ActionTableCell'
 import TableCxHeader from './TableHeaders'
 import CollapsibleRow from './CollapsibleRow'
+import EditTableCell from './EditTableCell'
 
 const propTypes = {
   onSave: func,
   onDelete: func,
-  collapsibleRow: node
+  collapsibleRow: node,
+  inputDropdownData: shape({
+    key: string, // ie: user
+    data: arrayOf(shape({
+      id: string,
+      name: string
+    }))
+  })
 }
 
-const TableCx = ({ onDelete, onSave, collapsibleRow: CollapsibleRow }) => {
+const TableCx = ({ onDelete, onSave, collapsibleRow: CollapsibleRow, inputDropdownData }) => {
   const { rows, tableHeaderKeys, makeDataTestId } = useContext(TableContext)
   const [expanded, setExpanded] = useState(undefined)
 
@@ -32,6 +40,7 @@ const TableCx = ({ onDelete, onSave, collapsibleRow: CollapsibleRow }) => {
       return React.cloneElement(CollapsibleRow, { expanded, row, dataKey })
     }
   }
+
   return (
     <Paper>
       <TableContainer>
@@ -55,7 +64,23 @@ const TableCx = ({ onDelete, onSave, collapsibleRow: CollapsibleRow }) => {
                     onSave={onSave}
                     row={row}
                   />
-                  <InfoTableCell expanded={expanded} headerKeys={tableHeaderKeys} row={row} setExpanded={setExpanded} />
+                  {row.isEditMode ? (
+                    <EditTableCell
+                      headerKeys={tableHeaderKeys}
+                      inputDropdownData={{
+                        ...inputDropdownData,
+                        initValue: row[inputDropdownData.key]?.id || ''
+                      }}
+                      row={row}
+                    />
+                  ) : (
+                    <InfoTableCell
+                      expanded={expanded}
+                      headerKeys={tableHeaderKeys}
+                      row={row}
+                      setExpanded={setExpanded}
+                    />
+                  )}
                 </TableRow>
                 {getIsCollapsible(row)}
               </>

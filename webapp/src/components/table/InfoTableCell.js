@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { arrayOf, func, object, string } from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
-import Input from '@material-ui/core/Input'
 import TableCell from '@material-ui/core/TableCell'
 import Typography from '@material-ui/core/Typography'
 
@@ -23,24 +22,9 @@ const propTypes = {
   headerKeys: arrayOf(object)
 }
 
-export const InfoTableCell = ({ row, expanded, setExpanded, headerKeys }) => {
-  const { previous, setPrevious, rows, setRows, makeDataTestId } = useContext(TableContext)
+const InfoTableCell = ({ row, expanded, setExpanded, headerKeys }) => {
+  const { makeDataTestId } = useContext(TableContext)
   const classes = transactionStyles()
-
-  const onChange = (e, row) => {
-    if (!previous[row.id]) {
-      setPrevious(state => ({ ...state, [row.id]: row }))
-    }
-    const { value, name } = e.target
-    const { id } = row
-    const newRows = rows.map(row => {
-      if (row.id === id) {
-        return { ...row, [name]: value }
-      }
-      return row
-    })
-    setRows(newRows)
-  }
 
   const cellHeaderData = (key) => headerKeys.find(header => header.id === key)
 
@@ -49,22 +33,30 @@ export const InfoTableCell = ({ row, expanded, setExpanded, headerKeys }) => {
       {Object.keys(row).map(key => {
         if (!cellHeaderData(key)) return null
 
-        if (row.isEditMode && !cellHeaderData(key).readOnly) {
+        if (cellHeaderData(key).type === 'id') {
+          const idString = row[key].slice(-8)
           return (
             <TableCell align='left' className={classes.tableCell} data-testid={makeDataTestId(row.id, `${key}-cell`)} key={key} >
-              <Input
-                className={classes.input}
-                data-testid={makeDataTestId(row.id, `${key}-input`)}
-                disabled={cellHeaderData(key).readOnly || false}
-                inputProps={{ readOnly: cellHeaderData(key).readOnly || false }}
-                name={key}
-                onChange={e => onChange(e, row)}
-                placeholder={cellHeaderData(key).placeholder || ''}
-                value={row[key]}
-              />
+              <Typography>
+                {idString}
+              </Typography>
             </TableCell>
           )
         }
+
+        if (cellHeaderData(key).type === 'name') {
+          const fulfillmentKeys = cellHeaderData(key).typeFulfillmentKeys
+          const rowKey = row[key]
+          const displayValue = rowKey[fulfillmentKeys[0]].concat(' ', rowKey[fulfillmentKeys[1]])
+          return (
+            <TableCell align='left' className={classes.tableCell} data-testid={makeDataTestId(row.id, `${key}-cell`)} key={key} >
+              <Typography>
+                {displayValue}
+              </Typography>
+            </TableCell>
+          )
+        }
+
         if (cellHeaderData(key).type === 'currency') {
           return (
             <TableCell align='left' className={classes.tableCell} data-testid={makeDataTestId(row.id, `${key}-cell`)} key={key} >

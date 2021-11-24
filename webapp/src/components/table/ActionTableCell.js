@@ -74,7 +74,7 @@ const ActionTableCell = ({ row, onSave, onDelete }) => {
           <IconButton
             aria-label='save'
             data-testid={makeDataTestId(row.id, 'save-button')}
-            onClick={() => onSave(row.id, rows, setRows)}
+            onClick={() => onSave(row.id, rows, setRows, previous)}
           >
             <DoneIcon />
           </IconButton>
