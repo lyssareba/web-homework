@@ -86,9 +86,12 @@ const EditTableCell = ({ row, headerKeys, inputDropdownData }) => {
               <FormControl key={key} style={{ width: '100%' }}>
                 <Select
                   id={makeDataTestId(row.id, `${key}-input-dropdown`)}
+                  inputProps={{
+                    'data-testid': makeDataTestId(row.id, `${key}-input-dropdown`)
+                  }}
                   name={key}
                   onChange={e => onDropdownChange(e, row)}
-                  value={value?.id || null}
+                  value={value?.id || ''}
                 >
                   {data.map(inp => (
                     <MenuItem key={inp.id} value={inp.id} >
@@ -107,9 +110,11 @@ const EditTableCell = ({ row, headerKeys, inputDropdownData }) => {
             <TableCell align='left' className={classes.tableCell} data-testid={makeDataTestId(row.id, `${key}-cell`)} key={key} >
               <Input
                 className={classes.input}
-                data-testid={makeDataTestId(row.id, `${key}-input`)}
                 disabled={cellHeaderData(key).readOnly || false}
-                inputProps={{ readOnly: cellHeaderData(key).readOnly || false }}
+                inputProps={{
+                  'data-testid': makeDataTestId(row.id, `${key}-input`),
+                  readOnly: cellHeaderData(key).readOnly || false
+                }}
                 name={key}
                 onChange={e => onChange(e, row)}
                 placeholder={cellHeaderData(key).placeholder || ''}

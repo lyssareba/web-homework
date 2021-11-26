@@ -1,7 +1,8 @@
 /* eslint-disable camelcase, react/jsx-sort-props */
 import React, { useState } from 'react'
 import { arrayOf, string, bool, number, shape } from 'prop-types'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
+import GetUsers from '../../gql/users.gql'
 
 import TableCx from '../../components/table'
 import { TableContext } from '../../components/table/TableContext'
@@ -11,15 +12,16 @@ import UpdateTransaction from '../../gql/updateTransaction.gql'
 import DeleteTransaction from '../../gql/deleteTransaction.gql'
 
 export const tableHeaderKeys = [
-  { id: 'id', label: 'ID', readOnly: true, placeholder: 'Auto Generated', type: 'text' },
-  { id: 'user_id', label: 'User ID', placeholder: 'employee1', type: 'text' },
+  { id: 'id', label: 'ID', readOnly: true, placeholder: 'Auto Generated', type: 'id' },
+  { id: 'user', label: 'User', placeholder: 'employee1', type: 'name', typeFulfillmentKeys: ['firstName', 'lastName'], inputType: 'dropdown' },
   { id: 'description', label: 'Description', placeholder: 'groceries', type: 'text' },
   { id: 'merchant_id', label: 'Merchant ID', placeholder: 'walmart', type: 'text' },
   { id: 'amount', label: 'Amount', placeholder: '-100 or +100', type: 'currency' }
 ]
 
-const createData = (data) => data.map(({ id, user_id, description, merchant_id, debit, amount }) => ({
+const createData = (data) => data.map(({ id, user_id, description, merchant_id, debit, amount, user }) => ({
   id,
+  user,
   user_id,
   description,
   merchant_id,
@@ -32,12 +34,23 @@ const TxTable = ({ data }) => {
   const [addTransaction] = useMutation(AddTransaction)
   const [updateTransaction] = useMutation(UpdateTransaction)
   const [deleteTransaction] = useMutation(DeleteTransaction)
+  const { data: usersData } = useQuery(GetUsers)
   const formattedData = createData(data)
   const [rows, setRows] = useState(formattedData)
   const [previous, setPrevious] = useState({})
 
   const testPrefix = 'transactions'
   const makeDataTestId = (transactionId, fieldName) => `${testPrefix}-${transactionId}-${fieldName}`
+  const txObject = {
+    id: null,
+    user: null,
+    user_id: null,
+    description: null,
+    merchant_id: null,
+    amount: null,
+    debit: null,
+    isEditMode: null
+  }
 
   const onSave = async (id, rows, setRows, previous) => {
     if (id === '') {
@@ -47,16 +60,20 @@ const TxTable = ({ data }) => {
       newTransaction.amount = parseFloat(newTransaction.amount.substring(1))
       delete newTransaction.isEditMode
       delete newTransaction.id
+      delete newTransaction.user
       try {
         const { data } = await addTransaction({
           variables: {
             ...newTransaction
           }
         })
-
+        newTransaction.user = usersData?.users.find(usr => usr.id === newTransaction.user_id)
         const newRows = rows.map(row => {
           if (row.id === undefined) {
-            return { id: data.addTransaction.id, ...row, isEditMode: false }
+            const formattedRow = Object.assign(txObject, row)
+            formattedRow.id = data.addTransaction.id
+            formattedRow.isEditMode = false
+            return { ...formattedRow }
           }
           return row
         })
@@ -66,26 +83,42 @@ const TxTable = ({ data }) => {
       }
     } else {
       const updatedTransaction = rows.find(row => row.id === id)
+
       if (updatedTransaction.amount !== previous[id].amount) {
         updatedTransaction.credit = /^\+/.test(updatedTransaction.amount) || false
         updatedTransaction.debit = /^-/.test(updatedTransaction.amount) || false
         updatedTransaction.amount = parseFloat(updatedTransaction.amount.substring(1))
       }
       delete updatedTransaction.isEditMode
+      delete updatedTransaction.user
+
       try {
         await updateTransaction({
           variables: {
-            ...updatedTransaction
+            id: updatedTransaction.id,
+            user_id: updatedTransaction.user_id,
+            description: updatedTransaction.description,
+            merchant_id: updatedTransaction.merchant_id,
+            debit: updatedTransaction.debit,
+            credit: updatedTransaction.credit,
+            amount: updatedTransaction.amount
           }
         })
+
+        updatedTransaction.user = usersData?.users.find(usr => usr.id === updatedTransaction.user_id)
         setRows(state => {
           return rows.map(row => {
             if (row.id === id) {
               delete row.credit
-              return { ...row }
+              const formattedRow = Object.assign(txObject, row)
+              return formattedRow
             }
             return row
           })
+        })
+        setPrevious(state => {
+          delete state[id]
+          return state
         })
       } catch (err) {
         console.log(err)
@@ -107,6 +140,7 @@ const TxTable = ({ data }) => {
     const newRows = [...rows]
     const emptyRow = {
       id: '',
+      user: {},
       user_id: '',
       description: '',
       merchant_id: '',
@@ -115,6 +149,15 @@ const TxTable = ({ data }) => {
     }
     newRows.unshift(emptyRow)
     setRows(newRows)
+  }
+
+  const formatDropdownData = () => {
+    const { users } = usersData
+    const formattedUsers = users.map(({ id, lastName, firstName }) => ({
+      id,
+      name: firstName.concat(' ', lastName)
+    }))
+    return formattedUsers
   }
 
   return (
@@ -132,10 +175,16 @@ const TxTable = ({ data }) => {
         addItemText={'Add Transaction'}
         onAddClick={onAddTransactionClick}
         tableTitle={'Transactions'}
+        testPrefix={testPrefix}
       />
       <TableCx
         onSave={onSave}
         onDelete={onTransactionDelete}
+        inputDropdownData={{
+          key: 'user',
+          updateKey: 'user_id',
+          data: usersData?.users?.length && formatDropdownData()
+        }}
       />
     </TableContext.Provider>
   )
