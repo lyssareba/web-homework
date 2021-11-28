@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { arrayOf, object, string, shape } from 'prop-types'
 
 import Input from '@material-ui/core/Input'
@@ -14,20 +14,22 @@ import transactionStyles from '../../styles/transactions'
 const propTypes = {
   row: object,
   headerKeys: arrayOf(object),
-  inputDropdownData: shape({
-    initValue: string, // id
-    updateKey: string, // ie: user_id
-    key: string, // ie: user
-    data: arrayOf(shape({
-      id: string,
-      name: string
-    }))
-  })
+  inputDropdownData: arrayOf(
+    shape({
+      initValue: string, // id
+      updateKey: string, // ie: user_id
+      key: string, // ie: user
+      data: arrayOf(shape({
+        id: string,
+        name: string
+      }))
+    })
+  )
 }
 
 const EditTableCell = ({ row, headerKeys, inputDropdownData }) => {
   const { previous, setPrevious, rows, setRows, makeDataTestId } = useContext(TableContext)
-  const [dropdownValue, setDropdownValue] = useState(inputDropdownData.initValue)
+  const [dropdownValue, setDropdownValue] = useState({})
   const classes = transactionStyles()
 
   const onChange = (e, row) => {
@@ -45,21 +47,33 @@ const EditTableCell = ({ row, headerKeys, inputDropdownData }) => {
     setRows(newRows)
   }
 
-  const onDropdownChange = (e, row) => {
+  const onDropdownChange = (e, row, key) => {
+    const curDropdown = inputDropdownData.find(obj => obj.key === key)
     if (!previous[row.id]) {
       setPrevious(state => ({ ...state, [row.id]: row }))
     }
+
     const { value } = e.target
-    setDropdownValue(value)
     const { id } = row
+
+    setDropdownValue(state => ({ ...state, [curDropdown.key]: value }))
+
     const newRows = rows.map(row => {
       if (row.id === id) {
-        return { ...row, [inputDropdownData.updateKey]: value }
+        return { ...row, [curDropdown.updateKey]: value }
       }
       return row
     })
     setRows(newRows)
   }
+
+  useEffect(() => {
+    if (inputDropdownData?.length) {
+      inputDropdownData.forEach(inputData => {
+        setDropdownValue(state => ({ ...state, [inputData.key]: inputData.initValue }))
+      })
+    }
+  }, [])
 
   const cellHeaderData = (key) => headerKeys.find(header => header.id === key)
   return (
@@ -79,8 +93,9 @@ const EditTableCell = ({ row, headerKeys, inputDropdownData }) => {
         }
 
         if (cellHeaderData(key)?.inputType === 'dropdown') {
-          const { data } = inputDropdownData
-          const value = data.find(inp => inp.id === dropdownValue)
+          const curDropdownData = inputDropdownData.find(obj => obj.key === key)
+          const data = curDropdownData?.data
+          const value = data?.find(inp => inp?.id === dropdownValue[key])
           return (
             <TableCell align='left' className={classes.tableCell} data-testid={makeDataTestId(row.id, `${key}-cell`)} key={key} >
               <FormControl key={key} style={{ width: '100%' }}>
@@ -90,7 +105,7 @@ const EditTableCell = ({ row, headerKeys, inputDropdownData }) => {
                     'data-testid': makeDataTestId(row.id, `${key}-input-dropdown`)
                   }}
                   name={key}
-                  onChange={e => onDropdownChange(e, row)}
+                  onChange={e => onDropdownChange(e, row, key)}
                   value={value?.id || ''}
                 >
                   {data.map(inp => (

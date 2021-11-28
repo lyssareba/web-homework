@@ -21,13 +21,15 @@ const propTypes = {
   onSave: func,
   onDelete: func,
   collapsibleRow: node,
-  inputDropdownData: shape({
-    key: string, // ie: user
-    data: arrayOf(shape({
-      id: string,
-      name: string
-    }))
-  })
+  inputDropdownData: arrayOf(
+    shape({
+      key: string, // ie: user
+      data: arrayOf(shape({
+        id: string,
+        name: string
+      }))
+    })
+  )
 }
 
 const TableCx = ({ onDelete, onSave, collapsibleRow: CollapsibleRow, inputDropdownData }) => {
@@ -40,6 +42,14 @@ const TableCx = ({ onDelete, onSave, collapsibleRow: CollapsibleRow, inputDropdo
       return React.cloneElement(CollapsibleRow, { expanded, row, dataKey })
     }
   }
+
+  const formatInputDropdownData = (row) => inputDropdownData?.map(dropData => {
+    const filledData = {
+      ...dropData,
+      initValue: row[dropData.key].id || ''
+    }
+    return filledData
+  })
 
   return (
     <Paper>
@@ -67,10 +77,7 @@ const TableCx = ({ onDelete, onSave, collapsibleRow: CollapsibleRow, inputDropdo
                   {row.isEditMode ? (
                     <EditTableCell
                       headerKeys={tableHeaderKeys}
-                      inputDropdownData={{
-                        ...inputDropdownData,
-                        initValue: row[inputDropdownData.key]?.id || ''
-                      }}
+                      inputDropdownData={formatInputDropdownData(row)}
                       row={row}
                     />
                   ) : (

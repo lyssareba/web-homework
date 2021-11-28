@@ -11,7 +11,6 @@ import UpdateUser from '../../gql/updateUser.gql'
 import DeleteUser from '../../gql/deleteUser.gql'
 
 const tableHeaderKeys = [
-  { id: 'id', label: 'ID', readOnly: true, placeholder: 'Auto Generated', type: 'text' },
   { id: 'dob', label: 'Birthday', placeholder: '01/21/2000', type: 'text' },
   { id: 'firstName', label: 'First Name', placeholder: 'John', type: 'text' },
   { id: 'lastName', label: 'Last Name', placeholder: 'Doe', type: 'text' },
@@ -126,7 +125,6 @@ const UsersTx = ({ data }) => {
         )}
         onDelete={onUserDelete}
         onSave={onSave}
-        tableHeaderKeys={tableHeaderKeys}
       />
     </TableContext.Provider>
   )

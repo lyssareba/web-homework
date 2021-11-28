@@ -3,10 +3,11 @@ query GetTransactions {
     id
     user_id
     description
-    merchant_id
+    vendor_id
     debit
     credit
     amount
-    user { id dob firstName lastName}
+    user { id dob firstName lastName }
+    vendor { id name }
   }
 }

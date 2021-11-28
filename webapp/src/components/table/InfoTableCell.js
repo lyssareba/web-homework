@@ -45,9 +45,12 @@ const InfoTableCell = ({ row, expanded, setExpanded, headerKeys }) => {
         }
 
         if (cellHeaderData(key).type === 'name') {
+          let displayValue = row[key].name
           const fulfillmentKeys = cellHeaderData(key).typeFulfillmentKeys
-          const rowKey = row[key]
-          const displayValue = rowKey[fulfillmentKeys[0]].concat(' ', rowKey[fulfillmentKeys[1]])
+          if (fulfillmentKeys?.length) {
+            const rowKey = row[key]
+            displayValue = rowKey[fulfillmentKeys[0]].concat(' ', rowKey[fulfillmentKeys[1]])
+          }
           return (
             <TableCell align='left' className={classes.tableCell} data-testid={makeDataTestId(row.id, `${key}-cell`)} key={key} >
               <Typography>
