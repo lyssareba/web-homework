@@ -4,8 +4,10 @@ const { TransactionModel } = require('../data-models/Transaction')
 const { UserModel } = require('../data-models/User')
 const TransactionType = require('./transaction-type')
 const Transactions = require('../query-resolvers/transaction-resolvers')
-const Users = require('../query-resolvers/user-resolvers')
 const UserType = require('./user-type')
+const Users = require('../query-resolvers/user-resolvers')
+const VendorType = require('./vendor-type')
+const Vendors = require('../query-resolvers/vendor-resolvers')
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -16,6 +18,8 @@ const mutation = new GraphQLObjectType({
         user_id: { type: GraphQLString },
         description: { type: GraphQLString },
         merchant_id: { type: GraphQLString },
+        vendor_id: { type: GraphQLString },
+        category: { type: GraphQLString },
         debit: { type: GraphQLBoolean },
         credit: { type: GraphQLBoolean },
         amount: { type: GraphQLFloat }
@@ -32,14 +36,16 @@ const mutation = new GraphQLObjectType({
         user_id: { type: GraphQLString },
         description: { type: GraphQLString },
         merchant_id: { type: GraphQLString },
+        vendor_id: { type: GraphQLString },
+        category: { type: GraphQLString },
         debit: { type: GraphQLBoolean },
         credit: { type: GraphQLBoolean },
         amount: { type: GraphQLFloat },
       },
-      resolve(parentValue, { id, user_id, description, merchant_id, debit, credit, amount }) {
+      resolve(parentValue, { id, user_id, description, merchant_id, vendor_id, category, debit, credit, amount }) {
         return TransactionModel.findByIdAndUpdate(
           id,
-          { user_id, description, merchant_id, debit, credit, amount },
+          { user_id, description, merchant_id, vendor_id, category, debit, credit, amount },
           { overwirte: true, new: true, useFindAndModify: false },
         )
       }
@@ -66,7 +72,7 @@ const mutation = new GraphQLObjectType({
       }
     },
     updateUser: {
-      type: TransactionType,
+      type: UserType,
       args: {
         id: { type: new GraphQLNonNull(GraphQLString)},
         dob: { type: GraphQLString },
@@ -90,6 +96,15 @@ const mutation = new GraphQLObjectType({
         return UserModel.findByIdAndDelete(id)
       }
     },
+    addVendor: {
+      type: VendorType,
+      args: {
+        name: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Vendors.addOne(args)
+      }
+    }
   })
 })
 

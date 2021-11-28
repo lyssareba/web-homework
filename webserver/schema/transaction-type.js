@@ -21,6 +21,16 @@ const TxUserType = new GraphQLObjectType({
 const UserSchema = require(path.join('..', 'data-models', 'User')) // eslint-disable-line no-unused-vars
 const { UserModel: User } = require(path.join('..', 'data-models', 'User'))
 
+const BaseVendorType = new GraphQLObjectType({
+  name: 'TxVendor',
+  fields: () => ({
+    id: { type: GraphQLString },
+    name: { type: GraphQLString }
+  })
+})
+const VendorSchema = require(path.join('..', 'data-models', 'Vendor')) // eslint-disable-line no-unused-vars
+const { VendorModel: Vendor } = require(path.join('..', 'data-models', 'Vendor'))
+
 const TransactionType = new GraphQLObjectType({
   name: 'Transaction',
   fields: () => ({
@@ -28,6 +38,8 @@ const TransactionType = new GraphQLObjectType({
     user_id: { type: GraphQLString },
     description: { type: GraphQLString },
     merchant_id: { type: GraphQLString },
+    vendor_id: { type: GraphQLString },
+    category: { type: GraphQLString },
     debit: { type: GraphQLBoolean },
     credit: { type: GraphQLBoolean },
     amount: { type: GraphQLFloat },
@@ -39,6 +51,16 @@ const TransactionType = new GraphQLObjectType({
           delete Object.assign(usr, {['id']: usr['_id']})['_id']
         })
         return user[0]
+      }
+    },
+    vendor: {
+      type: BaseVendorType,
+      resolve: async (parentValue) => {
+        const vendor = await Vendor.find({ _id: parentValue.vendor_id })
+        vendor.forEach(vndr => {
+          delete Object.assign(vndr, {['id']: vndr['_id']})['_id']
+        })
+        return vendor[0]
       }
     }
   })

@@ -3,6 +3,8 @@ const TransactionType = require('./transaction-type')
 const Transactions = require('../query-resolvers/transaction-resolvers.js')
 const Users = require('../query-resolvers/user-resolvers')
 const UserType = require('./user-type')
+const Vendors = require('../query-resolvers/vendor-resolvers')
+const VendorType = require('./vendor-type')
 
 const {
   GraphQLBoolean,
@@ -31,6 +33,8 @@ const RootQuery = new GraphQLObjectType({
         debit: { type: GraphQLBoolean },
         description: { type: GraphQLString },
         merchant_id: { type: GraphQLString },
+        vendor_id: { type: GraphQLString },
+        category: { type: GraphQLString },
         user_id: { type: GraphQLString }
       },
       resolve (parentValue, args) {
@@ -56,6 +60,25 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parentValue, args) {
         return Users.find(args)
+      }
+    },
+    vendor: {
+      type: VendorType,
+      args: {
+        id: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        return Vendors.findOne(args.id)
+      }
+    },
+    vendors: {
+      type: GraphQLList(VendorType),
+      args: {
+        id: { type: GraphQLString },
+        name: { type: GraphQLString },
+      },
+      resolve(parentValue, args) {
+        return Vendors.find(args)
       }
     }
   })
