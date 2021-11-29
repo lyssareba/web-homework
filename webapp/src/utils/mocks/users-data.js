@@ -11,6 +11,7 @@ export const users = [
         "vendor_id": "61a175e6388a4073ca8b0f86",
         "debit": true,
         "credit": false,
+        "amount": 12.99,
         "vendor": {
           "id": "61a175e6388a4073ca8b0f86",
           "name": "Walmart"
@@ -22,6 +23,7 @@ export const users = [
         "vendor_id": "61a175f9388a4073ca8b0f88",
         "debit": true,
         "credit": false,
+        "amount": 49,
         "vendor": {
           "id": "61a175f9388a4073ca8b0f88",
           "name": "Starbucks"
@@ -41,6 +43,7 @@ export const users = [
         "vendor_id": "61a175f3388a4073ca8b0f87",
         "debit": true,
         "credit": false,
+        "amount": 59.99,
         "vendor": {
           "id": "61a175f3388a4073ca8b0f87",
           "name": "Pet Smart"
@@ -60,6 +63,7 @@ export const users = [
         "vendor_id": "61a175ff388a4073ca8b0f89",
         "debit": true,
         "credit": false,
+        "amount": 1.99,
         "vendor": {
           "id": "61a175ff388a4073ca8b0f89",
           "name": "Lowes"
@@ -79,6 +83,7 @@ export const users = [
         "vendor_id": "61a175d0388a4073ca8b0f85",
         "debit": true,
         "credit": false,
+        "amount": 12.99,
         "vendor": {
           "id": "61a175d0388a4073ca8b0f85",
           "name": "Staples"

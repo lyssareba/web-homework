@@ -46,7 +46,7 @@ const TableCx = ({ onDelete, onSave, collapsibleRow: CollapsibleRow, inputDropdo
   const formatInputDropdownData = (row) => inputDropdownData?.map(dropData => {
     const filledData = {
       ...dropData,
-      initValue: row[dropData.key].id || ''
+      initValue: row[dropData.key]?.id || ''
     }
     return filledData
   })

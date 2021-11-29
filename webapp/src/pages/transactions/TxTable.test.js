@@ -2,8 +2,9 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { MockedProvider } from '@apollo/client/testing'
 import TxTable from './TxTable'
-import { transactions, users } from '../../utils/mocks'
+import { transactions, users, vendors } from '../../utils/mocks'
 import GetUsers from '../../gql/users.gql'
+import GetVendors from '../../gql/vendors.gql'
 import DeleteTransaction from '../../gql/deleteTransaction.gql'
 import UpdateTransaction from '../../gql/updateTransaction.gql'
 import AddTransaction from '../../gql/addTransaction.gql'
@@ -19,6 +20,17 @@ describe('Transactions Table', () => {
     result: {
       data: {
         users
+      }
+    }
+  }
+
+  const mockGetVendors = {
+    request: {
+      query: GetVendors
+    },
+    result: {
+      data: {
+        vendors
       }
     }
   }
@@ -40,9 +52,9 @@ describe('Transactions Table', () => {
     request: {
       query: AddTransaction,
       variables: {
-        user_id: '61946c571c2a20c8f553d76b',
+        user_id: users[0].id,
         description: 'test description',
-        merchant_id: 'test merchant',
+        vendor_id: vendors[0].id,
         debit: true,
         credit: false,
         amount: 2.99
@@ -63,8 +75,8 @@ describe('Transactions Table', () => {
       variables: {
         id: '619463389d0b3bb69eba7379',
         user_id: '61946c571c2a20c8f553d76b',
-        description: 'baking supplies',
-        merchant_id: 'walmart',
+        description: 'Baking Supplies',
+        vendor_id: '61a175e6388a4073ca8b0f86',
         debit: true,
         credit: false,
         amount: 17.99
@@ -79,7 +91,7 @@ describe('Transactions Table', () => {
     }
   }
 
-  const mocks = [ mockGetUsers, mockDeleteTx, mockAddTx, mockUpdateTx ]
+  const mocks = [ mockGetVendors, mockGetUsers, mockDeleteTx, mockAddTx, mockUpdateTx ]
 
   it('should match snapshot', () => {
     const { container } = render(
@@ -131,22 +143,26 @@ describe('Transactions Table', () => {
         <TxTable data={transactions} />
       </MockedProvider>
     )
-    await waitFor(() => new Promise((res) => setTimeout(res, 0)));
+    await waitFor(() => new Promise((res) => setTimeout(res, 5)));
 
     const txAddButton = getByTestId(`transactions-add-button`)
     fireEvent.click(txAddButton)
 
+    await waitFor(() => new Promise((res) => setTimeout(res, 5)));
+
     const newDescriptionField = getByTestId(`transactions--description-input`)
     fireEvent.change(newDescriptionField, { target: { value: 'test description' } })
 
-    const newMerchantField = getByTestId(`transactions--merchant_id-input`)
-    fireEvent.change(newMerchantField, { target: { value: 'test merchant' } })
-
-    const newUserField = getByTestId(`transactions--user-input-dropdown`)
-    fireEvent.change(newUserField, { target: { value: users[0].id } })
+    const newVendorField = getByTestId(`transactions--vendor-input-dropdown`)
+    fireEvent.change(newVendorField, { target: { value: vendors[0].id } })
+    await waitFor(() => new Promise((res) => setTimeout(res, 0)));
 
     const newAmountField = getByTestId(`transactions--amount-input`)
     fireEvent.change(newAmountField, { target: { value: '-2.99' } })
+
+    const newUserField = getByTestId(`transactions--user-input-dropdown`)
+    fireEvent.change(newUserField, { target: { value: users[0].id } })
+    await waitFor(() => new Promise((res) => setTimeout(res, 5)));
 
     const saveNewTxField = getByTestId(`transactions--save-button`)
     fireEvent.click(saveNewTxField)

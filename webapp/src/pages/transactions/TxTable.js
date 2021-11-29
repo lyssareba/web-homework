@@ -157,6 +157,7 @@ const TxTable = ({ data }) => {
       user_id: '',
       description: '',
       vendor_id: '',
+      vendor: {},
       // category: '',
       amount: '',
       isEditMode: true

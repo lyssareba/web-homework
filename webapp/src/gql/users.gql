@@ -8,7 +8,6 @@ query GetUsers {
       id
       description
       vendor_id
-      category
       amount
       debit
       credit

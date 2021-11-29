@@ -1,6 +1,6 @@
 const { model, Schema, SchemaTypes } = require('mongoose')
 
-const CategoryEnum = ['FOOD', 'SUPPLIES', 'HARDWARE', 'SOFTWARE', 'MISCELLANEOUS', 'GIFTS', 'TRAVEL']
+const CategoryEnum = ['FOOD', 'SUPPLIES', 'HARDWARE', 'SOFTWARE', 'MISCELLANEOUS', 'GIFTS', 'TRAVEL', null]
 
 const TransactionSchema = new Schema({
   id: { type: SchemaTypes.ObjectId },

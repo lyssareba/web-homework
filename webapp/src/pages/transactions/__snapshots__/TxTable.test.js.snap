@@ -63,12 +63,6 @@ exports[`Transactions Table should match snapshot 1`] = `
               class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
               scope="col"
             >
-              ID
-            </th>
-            <th
-              class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
-              scope="col"
-            >
               User
             </th>
             <th
@@ -81,7 +75,7 @@ exports[`Transactions Table should match snapshot 1`] = `
               class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
               scope="col"
             >
-              Merchant ID
+              Vendor
             </th>
             <th
               class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-stickyHeader"
@@ -94,116 +88,6 @@ exports[`Transactions Table should match snapshot 1`] = `
         <tbody
           class="MuiTableBody-root"
         >
-          <tr
-            class="MuiTableRow-root"
-            data-testid="transactions-6185992085f9270693b1dd76-table-row"
-          >
-            <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-selectTableCell-2"
-            >
-              <button
-                aria-label="edit"
-                class="MuiButtonBase-root MuiIconButton-root"
-                data-testid="transactions-6185992085f9270693b1dd76-edit-button"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiIconButton-label"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-              <button
-                aria-label="delete"
-                class="MuiButtonBase-root MuiIconButton-root"
-                data-testid="transactions-6185992085f9270693b1dd76-delete-button"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiIconButton-label"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </td>
-            <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-6185992085f9270693b1dd76-id-cell"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1"
-              >
-                93b1dd76
-              </p>
-            </td>
-            <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-6185992085f9270693b1dd76-user-cell"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1"
-              >
-                The Doctor
-              </p>
-            </td>
-            <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-6185992085f9270693b1dd76-description-cell"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1"
-              >
-                beer
-              </p>
-            </td>
-            <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-6185992085f9270693b1dd76-merchant_id-cell"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1"
-              >
-                walmart
-              </p>
-            </td>
-            <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-6185992085f9270693b1dd76-amount-cell"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1"
-                style="color: red;"
-              >
-                - $2.49
-              </p>
-            </td>
-          </tr>
           <tr
             class="MuiTableRow-root"
             data-testid="transactions-6193f15d29bfd8875c649bfb-table-row"
@@ -264,16 +148,6 @@ exports[`Transactions Table should match snapshot 1`] = `
             </td>
             <td
               class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-6193f15d29bfd8875c649bfb-id-cell"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1"
-              >
-                5c649bfb
-              </p>
-            </td>
-            <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
               data-testid="transactions-6193f15d29bfd8875c649bfb-user-cell"
             >
               <p
@@ -289,17 +163,17 @@ exports[`Transactions Table should match snapshot 1`] = `
               <p
                 class="MuiTypography-root MuiTypography-body1"
               >
-                office supplies
+                Fish and Chips
               </p>
             </td>
             <td
               class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-6193f15d29bfd8875c649bfb-merchant_id-cell"
+              data-testid="transactions-6193f15d29bfd8875c649bfb-vendor-cell"
             >
               <p
                 class="MuiTypography-root MuiTypography-body1"
               >
-                staples
+                Starbucks
               </p>
             </td>
             <td
@@ -308,9 +182,9 @@ exports[`Transactions Table should match snapshot 1`] = `
             >
               <p
                 class="MuiTypography-root MuiTypography-body1"
-                style="color: green;"
+                style="color: red;"
               >
-                + $100.00
+                - $12.99
               </p>
             </td>
           </tr>
@@ -374,16 +248,6 @@ exports[`Transactions Table should match snapshot 1`] = `
             </td>
             <td
               class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-619463389d0b3bb69eba7379-id-cell"
-            >
-              <p
-                class="MuiTypography-root MuiTypography-body1"
-              >
-                9eba7379
-              </p>
-            </td>
-            <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
               data-testid="transactions-619463389d0b3bb69eba7379-user-cell"
             >
               <p
@@ -399,17 +263,17 @@ exports[`Transactions Table should match snapshot 1`] = `
               <p
                 class="MuiTypography-root MuiTypography-body1"
               >
-                baking supplies
+                Baking Supplies
               </p>
             </td>
             <td
               class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
-              data-testid="transactions-619463389d0b3bb69eba7379-merchant_id-cell"
+              data-testid="transactions-619463389d0b3bb69eba7379-vendor-cell"
             >
               <p
                 class="MuiTypography-root MuiTypography-body1"
               >
-                walmart
+                Walmart
               </p>
             </td>
             <td
@@ -420,7 +284,307 @@ exports[`Transactions Table should match snapshot 1`] = `
                 class="MuiTypography-root MuiTypography-body1"
                 style="color: red;"
               >
-                - $14.99
+                - $12.99
+              </p>
+            </td>
+          </tr>
+          <tr
+            class="MuiTableRow-root"
+            data-testid="transactions-61a037616c191f0669d0959c-table-row"
+          >
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-selectTableCell-2"
+            >
+              <button
+                aria-label="edit"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transactions-61a037616c191f0669d0959c-edit-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                aria-label="delete"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transactions-61a037616c191f0669d0959c-delete-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a037616c191f0669d0959c-user-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Jack Harkness
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a037616c191f0669d0959c-description-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Dog Food
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a037616c191f0669d0959c-vendor-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Pet Smart
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a037616c191f0669d0959c-amount-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+                style="color: red;"
+              >
+                - $59.99
+              </p>
+            </td>
+          </tr>
+          <tr
+            class="MuiTableRow-root"
+            data-testid="transactions-61a0412c6c191f0669d0959d-table-row"
+          >
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-selectTableCell-2"
+            >
+              <button
+                aria-label="edit"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transactions-61a0412c6c191f0669d0959d-edit-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                aria-label="delete"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transactions-61a0412c6c191f0669d0959d-delete-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a0412c6c191f0669d0959d-user-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Clara Oswald
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a0412c6c191f0669d0959d-description-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Pastries
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a0412c6c191f0669d0959d-vendor-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Starbucks
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a0412c6c191f0669d0959d-amount-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+                style="color: red;"
+              >
+                - $49.00
+              </p>
+            </td>
+          </tr>
+          <tr
+            class="MuiTableRow-root"
+            data-testid="transactions-61a15f27e0c35260802cc074-table-row"
+          >
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-selectTableCell-2"
+            >
+              <button
+                aria-label="edit"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transactions-61a15f27e0c35260802cc074-edit-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+              <button
+                aria-label="delete"
+                class="MuiButtonBase-root MuiIconButton-root"
+                data-testid="transactions-61a15f27e0c35260802cc074-delete-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a15f27e0c35260802cc074-user-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                The Doctor
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a15f27e0c35260802cc074-description-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Screw Driver
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a15f27e0c35260802cc074-vendor-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Lowes
+              </p>
+            </td>
+            <td
+              class="MuiTableCell-root MuiTableCell-body makeStyles-tableCell-3 MuiTableCell-alignLeft"
+              data-testid="transactions-61a15f27e0c35260802cc074-amount-cell"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+                style="color: red;"
+              >
+                - $1.99
               </p>
             </td>
           </tr>

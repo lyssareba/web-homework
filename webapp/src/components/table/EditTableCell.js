@@ -49,6 +49,7 @@ const EditTableCell = ({ row, headerKeys, inputDropdownData }) => {
 
   const onDropdownChange = (e, row, key) => {
     const curDropdown = inputDropdownData.find(obj => obj.key === key)
+
     if (!previous[row.id]) {
       setPrevious(state => ({ ...state, [row.id]: row }))
     }
@@ -108,7 +109,7 @@ const EditTableCell = ({ row, headerKeys, inputDropdownData }) => {
                   onChange={e => onDropdownChange(e, row, key)}
                   value={value?.id || ''}
                 >
-                  {data.map(inp => (
+                  {data?.map(inp => (
                     <MenuItem key={inp.id} value={inp.id} >
                       {inp.name}
                     </MenuItem>
