@@ -1,0 +1,13 @@
+mutation AddUser (
+  $dob: String!,
+  $firstName: String!,
+  $lastName: String!,
+) {
+  addUser(
+    dob: $dob,
+    firstName: $firstName,
+    lastName: $lastName,
+  ) {
+    id
+  }
+}

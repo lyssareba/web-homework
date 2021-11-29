@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react'
 import { useQuery } from '@apollo/client'
-import GetTransactions from '../gql/transactions.gql'
-import { TxTable } from '../components/transactions/TxTable'
+import GetTransactions from '../../gql/transactions.gql'
+import HomePage from './Home'
 
-export function Home () {
+const Home = () => {
   const { loading, error, data = {} } = useQuery(GetTransactions)
+
+  if (data) {
+    console.log(data)
+  }
 
   if (loading) {
     return (
@@ -23,8 +27,11 @@ export function Home () {
   }
 
   return (
+    // set up overview dashboard
     <Fragment>
-      <TxTable data={data.transactions} />
+      <HomePage txData={data?.transactions} />
     </Fragment>
   )
 }
+
+export default Home
