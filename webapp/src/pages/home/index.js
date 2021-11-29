@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { useQuery } from '@apollo/client'
 import GetTransactions from '../../gql/transactions.gql'
+import HomePage from './Home'
 
 const Home = () => {
   const { loading, error, data = {} } = useQuery(GetTransactions)
@@ -28,7 +29,7 @@ const Home = () => {
   return (
     // set up overview dashboard
     <Fragment>
-      Welcome to Budget Master
+      <HomePage txData={data?.transactions} />
     </Fragment>
   )
 }

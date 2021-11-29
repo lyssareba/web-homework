@@ -69,6 +69,7 @@
     "graphql": "14.3.1",
     "graphql-tag": "^2.10.1",
     "prop-types": "15.7.2",
+    "randomcolor": "^0.6.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-hot-loader": "4.11.0",
