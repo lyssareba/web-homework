@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState } from 'react'
 import { arrayOf, string, shape, number, bool } from 'prop-types'
 import { useMutation } from '@apollo/client'
@@ -17,20 +18,27 @@ const tableHeaderKeys = [
   { id: 'transactions', label: 'Transactions', readOnly: true, placeholder: 'Auto Managed', type: 'expandable' }
 ]
 
-const createData = (data) => data.map(({ id, dob, firstName, lastName, transactions }) => ({
-  id,
-  dob,
-  firstName,
-  lastName,
-  transactions,
-  isEditMode: false
-}))
-
-const UsersTx = ({ data }) => {
+const UsersTx = ({ data, vendors }) => {
   const [addUser] = useMutation(AddUser)
   const [updateUser] = useMutation(UpdateUser)
   const [deleteUser] = useMutation(DeleteUser)
+
+  const createData = (data) => data.map(({ id, dob, firstName, lastName, transactions }) => ({
+    id,
+    dob,
+    firstName,
+    lastName,
+    transactions: transactions?.map(({ description, vendor_id, debit, amount }) => ({
+      description,
+      vendor: vendors?.find(vndr => vndr.id === vendor_id),
+      amount,
+      debit
+    })),
+    isEditMode: false
+  }))
+
   const formattedData = createData(data)
+
   const [rows, setRows] = useState(formattedData)
   const [previous, setPrevious] = useState({})
 
@@ -119,7 +127,7 @@ const UsersTx = ({ data }) => {
       <TableCx
         collapsibleRow={(
           <TableCx.Collapsible
-            headerKeys={txHeaderKeys.filter(key => key.id !== 'user_id' && key.id !== 'user')}
+            headerKeys={txHeaderKeys.filter(key => key.id !== 'user')}
             tableTitle={'Transactions'}
           />
         )}
@@ -145,6 +153,10 @@ UsersTx.propTypes = {
       merchant_id: string,
       user_id: string
     }))
+  })),
+  vendors: arrayOf(shape({
+    id: string,
+    name: string
   }))
 }
 
