@@ -17,7 +17,6 @@ const mutation = new GraphQLObjectType({
       args: {
         user_id: { type: GraphQLString },
         description: { type: GraphQLString },
-        merchant_id: { type: GraphQLString },
         vendor_id: { type: GraphQLString },
         category: { type: GraphQLString },
         debit: { type: GraphQLBoolean },
@@ -35,17 +34,16 @@ const mutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLString)},
         user_id: { type: GraphQLString },
         description: { type: GraphQLString },
-        merchant_id: { type: GraphQLString },
         vendor_id: { type: GraphQLString },
         category: { type: GraphQLString },
         debit: { type: GraphQLBoolean },
         credit: { type: GraphQLBoolean },
         amount: { type: GraphQLFloat },
       },
-      resolve(parentValue, { id, user_id, description, merchant_id, vendor_id, category, debit, credit, amount }) {
+      resolve(parentValue, { id, user_id, description, vendor_id, category, debit, credit, amount }) {
         return TransactionModel.findByIdAndUpdate(
           id,
-          { user_id, description, merchant_id, vendor_id, category, debit, credit, amount },
+          { user_id, description, vendor_id, category, debit, credit, amount },
           { overwirte: true, new: true, useFindAndModify: false },
         )
       }

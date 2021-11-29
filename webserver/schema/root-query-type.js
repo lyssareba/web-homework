@@ -32,7 +32,6 @@ const RootQuery = new GraphQLObjectType({
         credit: { type: GraphQLBoolean },
         debit: { type: GraphQLBoolean },
         description: { type: GraphQLString },
-        merchant_id: { type: GraphQLString },
         vendor_id: { type: GraphQLString },
         category: { type: GraphQLString },
         user_id: { type: GraphQLString }

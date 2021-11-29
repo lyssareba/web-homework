@@ -9,7 +9,6 @@ const TransactionSchema = new Schema({
   credit: { type: Boolean, default: null },
   debit: { type: Boolean, default: null },
   description: { type: String, default: null },
-  merchant_id: { type: String, default: null },
   vendor_id: { type: String, default: null },
   category: { type: String, enum: CategoryEnum, default: null },
   user: { type: Object, default: null}

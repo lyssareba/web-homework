@@ -18,8 +18,8 @@ async function findOne (id) {
   return packageModel(transaction)[0] || null
 }
 
-async function addOne ({ user_id, description, merchant_id, debit, credit, amount }) {
-  const query = new TransactionModel({ user_id, description, merchant_id, debit, credit, amount })
+async function addOne ({ user_id, description, vendor_id, category, debit, credit, amount }) {
+  const query = new TransactionModel({ user_id, description, vendor_id, category, debit, credit, amount })
   const transaction = await query.save();
 
   return packageModel(transaction)[0] || null

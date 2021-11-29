@@ -37,7 +37,6 @@ const TransactionType = new GraphQLObjectType({
     id: { type: GraphQLString },
     user_id: { type: GraphQLString },
     description: { type: GraphQLString },
-    merchant_id: { type: GraphQLString },
     vendor_id: { type: GraphQLString },
     category: { type: GraphQLString },
     debit: { type: GraphQLBoolean },
